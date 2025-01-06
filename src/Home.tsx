@@ -1,29 +1,24 @@
-import {useEffect} from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css'; // Import AOS styles
-import TopHeader from "./components/headers/top.header.tsx";
-import NavHeader from "./components/headers/nav.header.tsx";
+import {useContext, useEffect} from 'react';
 import {NavLink} from "react-router-dom";
 import {ImageParagraphCard, TitleParagraphCard} from "./components/card/card.component.tsx";
+import {TextInputField} from "./components/form/inputField.tsx";
+import {FaBuilding, FaEnvelope, FaPhone, FaUser} from "react-icons/fa6";
+import {AOSContext} from "./context/AosContext.tsx";
 
 const HomePage = () => {
+    const aosContext = useContext(AOSContext)
     useEffect(() => {
-        AOS.init({
-            duration: 1000,
-            easing: 'ease-in-out',
-            offset: 200,
-        });
-    }, []);
+        aosContext?.refreshAOS()
+    }, [aosContext]);
 
     return (
         <>
-            <TopHeader/>
-            <NavHeader/>
+
             {/* Banner */}
             <div
                 className="relative w-full h-64 bg-cover bg-center min-h-[450px]"
                 style={{
-                    backgroundImage: 'url(https://example.com/your-image.jpg)', // Replace with your actual image URL
+                    backgroundImage: 'url(https://example.com/your-image.jpg)',
                 }}
                 data-aos="fade-up"
             >
@@ -114,6 +109,60 @@ const HomePage = () => {
                     <TitleParagraphCard data-aos="fade-up"/>
                     <TitleParagraphCard data-aos="fade-up"/>
                 </div>
+            </div>
+
+            {/* contact us */}
+            <div className={'relative min-h-[450px] bg-cover bg-gray-200 flex justify-center items-center px-20 py-10'}>
+                <div className={' absolute inset-0 flex  justify-between items-center px-6 md:px-20'}>
+                    <div className={' flex flex-col gap-1'}>
+                        <span className={' text-xl text-green-500 font-bold'}> Want to Conduct an Exam? </span>
+                        <p className={' text-xl font-bold text-left'}>
+                            We will set up an Online Exam in
+                            <br/>
+                            your pattern for your Organization
+                            <br/>
+                            It may be for Academics or Recruitments.
+                        </p>
+                    </div>
+                    <div className={' bg-amber-100 p-5  flex flex-col gap-2 items-center justify-center mt-6 max-w-2xl'}
+                         data-aos="fade-up">
+                        <form>
+                            <span className={' text-center text-gray-600 font-bold'}> Fill the form and we will get back to you.</span>
+                            <div className={' flex flex-col  mt-6'}>
+                                <TextInputField placeholder={'John Doe'} type={'text'} icon={<FaUser/>}/>
+                                <TextInputField placeholder={'iHb3I@example.com'} type={'email'}
+                                                icon={<FaEnvelope/>}/>
+                                <TextInputField placeholder={'9802334171'} type={'tel'}
+                                                icon={<FaPhone/>}/>
+                                <TextInputField placeholder={'ABC Company'} type={'text'}
+                                                icon={<FaBuilding/>}/>
+                                <div className={' flex justify-center mt-2 '}>
+                                    <button
+                                        type="submit"
+                                        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+                                    >
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {/*Become an Instructor*/}
+            <div className={'relative min-h-[300px] bg-cover bg-blue-400 flex justify-center items-center px-20 py-8'}>
+                <div className={' absolute inset-0 flex  flex-col justify-center items-center px-6 md:px-20'}>
+                    <h1 className={' text-4xl text-white font-bold'}>Become an Instructor</h1>
+                    <p className={' text-xl text-white font-bold font-serif mt-4 text-center max-w-xl'}>
+                        Share your knowledge and reach millions of students across the globe. Join the world's largest
+                        online learning marketplace.
+                    </p>
+                    <NavLink to={'/apply-instructor'}
+                             className={' bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mt-4'}>
+                        Apply as Instructor
+                    </NavLink>
+                </div>
+
             </div>
         </>
     );
