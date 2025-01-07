@@ -6,9 +6,11 @@ import {ToastContainer} from "react-toastify";
 import BlogPage from "../pages/blog";
 import {useContext, useEffect} from "react";
 import {AOSContext} from "../context/AosContext.tsx";
+import RegisterPage from "../pages/auth/register";
+import {AiOutlineWhatsApp} from "react-icons/ai";
 
 const RouterConfig = () => {
-  const aosContext=useContext(AOSContext)
+    const aosContext = useContext(AOSContext)
     useEffect(() => {
         aosContext?.refreshAOS()
     }, []);
@@ -22,9 +24,20 @@ const RouterConfig = () => {
                         <Route index element={<Home/>}/>
                         <Route path={'/find-mcq'} element={<FindMCQ/>}/>
                         <Route path={'/blog'} element={<BlogPage/>}/>
+                        <Route path={'/register'} element={<RegisterPage/>}/>
                     </Route>
                 </Routes>
 
+                {/* WhatsApp Button */}
+                <a
+                    href="https://wa.me/YOUR_PHONE_NUMBER"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="fixed bottom-4 right-4 bg-green-500 text-white rounded-full p-4 shadow-lg flex items-center justify-center"
+                    title="Chat with us on WhatsApp"
+                >
+                    <AiOutlineWhatsApp size={24}/>
+                </a>
 
             </BrowserRouter>
         </>
